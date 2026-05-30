@@ -56,17 +56,7 @@
         }
     }, { passive: true });
 
-    /* ── Ripple system ── */
-    const ripples = [];
 
-    function spawnRipple(x, y) {
-        ripples.push({ x, y, r: 0, alpha: 0.7 });
-    }
-
-    window.addEventListener('click',      e => spawnRipple(e.clientX, e.clientY));
-    window.addEventListener('touchstart', e => {
-        if (e.touches.length > 0) spawnRipple(e.touches[0].clientX, e.touches[0].clientY);
-    }, { passive: true });
 
     /* ── Helpers ── */
     function rand(min, max) { return min + Math.random() * (max - min); }
@@ -103,36 +93,6 @@
         ctx.beginPath();
         ctx.arc(mouse.x, mouse.y, 2.5, 0, Math.PI * 2);
         ctx.fill();
-    }
-
-    /* ════════════════════
-       RIPPLE WAVES
-    ════════════════════ */
-    function updateAndDrawRipples() {
-        for (let i = ripples.length - 1; i >= 0; i--) {
-            const rp = ripples[i];
-            rp.r    += 5;
-            rp.alpha *= 0.93;
-
-            if (rp.r >= 180 || rp.alpha < 0.01) {
-                ripples.splice(i, 1);
-                continue;
-            }
-
-            ctx.globalAlpha = rp.alpha;
-            ctx.strokeStyle = '#8b6ff7';
-            ctx.lineWidth   = 1.2;
-            ctx.beginPath();
-            ctx.arc(rp.x, rp.y, rp.r, 0, Math.PI * 2);
-            ctx.stroke();
-
-            ctx.globalAlpha = rp.alpha * 0.35;
-            ctx.strokeStyle = '#00d4aa';
-            ctx.lineWidth   = 0.6;
-            ctx.beginPath();
-            ctx.arc(rp.x, rp.y, rp.r * 0.65, 0, Math.PI * 2);
-            ctx.stroke();
-        }
     }
 
     /* ════════════════════
@@ -519,7 +479,6 @@
         particles.forEach(p => { p.update(); p.draw(); });
 
         /* overlay effects — drawn on top of everything */
-        updateAndDrawRipples();
         drawCursorAura();
 
         ctx.globalAlpha = 1;
