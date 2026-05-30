@@ -220,7 +220,7 @@
     ════════════════════ */
     class ConnectionWeb {
         constructor() {
-            this.nodes = Array.from({ length: 22 }, () => ({
+            this.nodes = Array.from({ length: 30 }, () => ({
                 x:  rand(0.04, 0.96),
                 y:  rand(0.04, 0.96),
                 vx: rand(-0.00025, 0.00025),
@@ -504,8 +504,8 @@
     const hLines    = Array.from({ length: 6  }, () => new GridLine(true));
     const vLines    = Array.from({ length: 9  }, () => new GridLine(false));
     const web       = new ConnectionWeb();
-    const shapes    = Array.from({ length: 16 }, () => new FloatingShape());
-    const particles = Array.from({ length: 100 }, () => new Particle());
+    const shapes    = Array.from({ length: 40 }, () => new FloatingShape());
+    const particles = Array.from({ length: 160 }, () => new Particle());
 
     /* ── Render loop ── */
     function frame() {
